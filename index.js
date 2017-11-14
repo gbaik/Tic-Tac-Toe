@@ -18,6 +18,8 @@ var properCoordinates = {
   '22' : true
   };
 
+var turn = 0;
+
 prompt.start();
 
 /*
@@ -49,11 +51,12 @@ function playerX() {
     if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
       errorHandler('X');      
     } else {
-      var first = result.coordinates[0];
-      var second = result.coordinates[1];
-      board[first][second] = ' X';
+      var row = result.coordinates[0];
+      var column = result.coordinates[1];
+      board[row][column] = ' X';
       drawBoard();
-      checkWinner('X');
+      turn++;
+      checkEnd('X', row, column);
     }
   });
 }
@@ -69,11 +72,12 @@ function playerO() {
     if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
       errorHandler('O');      
     } else {
-      var first = result.coordinates[0];
-      var second = result.coordinates[1];
-      board[first][second] = ' O';
+      var row = result.coordinates[0];
+      var column = result.coordinates[1];
+      board[row][column] = ' O';
       drawBoard();
-      checkWinner('O');
+      turn++;
+      checkEnd('O', row, column);
     }
   });
 }
@@ -83,10 +87,9 @@ function checkCoordinates (coordinates) {
 }
 
 function checkBoard (coordinates) {
-  var first = coordinates[0];
-  var second = coordinates[1];
-  console.log('BOARD', coordinates);
-  return board[first][second] !== coordinates;
+  var row = coordinates[0];
+  var column = coordinates[1];
+  return board[row][column] !== coordinates;
 }
 
 function errorHandler(player) {
@@ -94,11 +97,34 @@ function errorHandler(player) {
   player === 'X' ? playerX() : playerO();
 }
 
+function checkRow (row) {
+  return checkEqual(board[row][0], board[row][1], board[row][2]);
+}
+
+function checkColumn (column) {
+  return checkEqual(board[0][column], board[1][column], board[2][column]);
+}
+
+function checkMinorDiagonal () {
+  return checkEqual(board[0][0], board[1][1], board[2][2]);
+}
+
+function checkMajorDiagonal () {
+  return checkEqual(board[0][2], board[1][1], board[2][0]);
+}
+
+function checkEqual (cord1, cord2, cord3) {
+  return cord1 === cord2 && cord2 === cord3;
+}
+
+function checkWinner (row, column) {
+  return checkRow(row) || checkColumn(column) || checkMinorDiagonal() || checkMajorDiagonal();
+}
 // Winner function
-function checkWinner(player) {  
+function checkEnd(player, row, column) {  
   // Go through board array
   // If there is three in a row
-  if (false) {
+  if (checkWinner(row, column)) {
     // Output winner of the game
     console.log('Congratulations', player, 'YOU ARE THE WINNER!!!');
     // End game
