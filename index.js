@@ -32,14 +32,14 @@ function drawBoard() {
       // Display new board
       // Invoke winner function (x)
 
-// Y Player
+// O Player
   // Ask what position they want 
     // If position is not on board or it's filled
-      // Invoke error function (x)
+      // Invoke error function (o)
     // Else
       // Insert into board array
       // Display new board
-      // Invoke winner function (x)
+      // Invoke winner function (o)
 
 // Error function
   // Error message that it is not a valid move
