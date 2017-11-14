@@ -1,0 +1,22 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Gideon's CLI Tic-Tac-Toe ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbaik/Tic-Tac-Toe.git"
+  },
+  "author": "Gideon Baik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbaik/Tic-Tac-Toe/issues"
+  },
+  "homepage": "https://github.com/gbaik/Tic-Tac-Toe#readme",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
+}
