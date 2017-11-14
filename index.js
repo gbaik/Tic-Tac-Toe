@@ -45,10 +45,7 @@ function playerX() {
       }
     }
   }, function (err, result) {
-    if (!checkCoordinates(result.coordinates)) {
-      errorHandler('X');
-    } else if (checkBoard(result.coordinates)){
-      // Invoke error function (x)
+    if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
       errorHandler('X');      
     }
     // Else
@@ -56,17 +53,6 @@ function playerX() {
       // Display new board
       // Invoke winner function (x)
   });
-}
-
-function checkCoordinates (coordinates) {
-    return properCoordinates[coordinates];
-}
-
-function checkBoard (coordinates) {
-  var first = coordinates[0];
-  var second = coordinates[1];
-  var boardValue = board[first][second];
-  return boardValue === 'X' || boardValue === '0'
 }
 
 // O Player
@@ -80,11 +66,19 @@ function playerO() {
       // Invoke winner function (o)
 }
 
-// Error function
+function checkCoordinates (coordinates) {
+  return properCoordinates[coordinates];
+}
+
+function checkBoard (coordinates) {
+var first = coordinates[0];
+var second = coordinates[1];
+var boardValue = board[first][second];
+return boardValue === 'X' || boardValue === '0'
+}
+
 function errorHandler(player) {
-  // Error message that it is not a valid move
   console.log('Move not valid, please go again');
-  // Invoke whichever player's turn it is
   player === 'X' ? playerX() : playerO();
 }
 
