@@ -1,9 +1,9 @@
 var prompt = require('prompt');
 
 var board = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null]
+  [00, 01, 02],
+  [10, 11, 12],
+  [20, 21, 22]
 ];
 
 prompt.start();
@@ -16,30 +16,49 @@ prompt.start();
 
 function drawBoard() {
   // Draws board
-  console.log('1|2|3');
-  console.log('4|5|6');
-  console.log('7|8|9');
+  console.log('00|01|02');
+  console.log('10|11|12');
+  console.log('20|21|22');
   
-  // Invoke X Player 
+  // Invoke X Player
+  playerX();
 }
 
 // X Player
+function playerX() {
   // Ask what position they want 
-    // If position is not on board or it's filled
+  prompt.get({
+    properties: {
+      name: {
+        description: ("X, type a number to place")
+      }
+    }
+  }, function (err, result) {
+    // Invoke check board function (results)
       // Invoke error function (x)
     // Else
       // Insert into board array
       // Display new board
       // Invoke winner function (x)
+  });
+}
 
 // O Player
   // Ask what position they want 
-    // If position is not on board or it's filled
+    // Invoke check board function (results)
       // Invoke error function (o)
     // Else
       // Insert into board array
       // Display new board
       // Invoke winner function (o)
+
+// Check board function
+  // Split arguments
+  // Use split string as index
+  // If the value is either X or O
+    // return true
+  // Else
+    // return false
 
 // Error function
   // Error message that it is not a valid move
