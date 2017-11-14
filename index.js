@@ -37,37 +37,46 @@ function drawBoard() {
   console.log(board[2][0],'|', board[2][1], '|', board[2][2]);  
 }
 
-// X Player
 function playerX() {
   prompt.get({
     properties: {
       coordinates: {
-        description: ("X, type a number to place")
+        description: ("Player X, type a number to place")
       }
     }
   }, function (err, result) {
     if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
       errorHandler('X');      
-    } else { // Else
+    } else { 
       var first = result.coordinates[0];
       var second = result.coordinates[1];
-      // Insert into board array
       board[first][second] = ' X';
-      init();
+      drawBoard();
       // Invoke winner function (x)
+      checkWinner('X');
     }
   });
 }
 
-// O Player
 function playerO() {
-  // Ask what position they want 
-    // Invoke check board function (results)
-      // Invoke error function (o)
-    // Else
-      // Insert into board array
-      // Display new board
+  prompt.get({
+    properties: {
+      coordinates: {
+        description: ("Player O, type a number to place")
+      }
+    }
+  }, function (err, result) {
+    if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
+      errorHandler('O');      
+    } else { 
+      var first = result.coordinates[0];
+      var second = result.coordinates[1];
+      board[first][second] = ' O';
+      drawBoard();
       // Invoke winner function (o)
+      checkWinner('O');
+    }
+  });
 }
 
 function checkCoordinates (coordinates) {
@@ -87,11 +96,18 @@ function errorHandler(player) {
 }
 
 // Winner function
+function checkWinner(player) {  
   // Go through board array
   // If there is three in a row
+  if (false) {
     // Output winner of the game
+    console.log('Congratulations', player, 'YOU ARE THE WINNER!!!');
     // End game
-  // Else
+    prompt.stop();
+  } else { // Else
     // Invoke the other player
-
+    player0();
+  }
+}
+  
 init();
