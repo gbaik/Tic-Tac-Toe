@@ -42,7 +42,6 @@ function playerX() {
       }
     }
   }, function (err, result) {
-    console.log(checkBoard(result.coordinates));
     if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
       errorHandler('X');      
     } else {
@@ -116,9 +115,16 @@ function checkWinner (row, column) {
   return checkRow(row) || checkColumn(column) || checkMinorDiagonal() || checkMajorDiagonal();
 }
 
+function checkDraw () {
+  return turn === 9;
+}
+
 function checkEnd(player, row, column) {  
   if (checkWinner(row, column)) {
     console.log('Congratulations', player, 'YOU ARE THE WINNER!!!');
+    prompt.stop();
+  } else if (checkDraw()) {
+    console.log('Tie game try again!');
     prompt.stop();
   } else { 
     player === 'X' ? playerO() : playerX();    
