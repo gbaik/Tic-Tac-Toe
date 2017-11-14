@@ -25,7 +25,7 @@ prompt.start();
 function init() {
   drawBoard();
 
-  playerX();  
+  move('X');  
 }
 
 function drawBoard() {
@@ -34,44 +34,23 @@ function drawBoard() {
   console.log(board[2][0],'|', board[2][1], '|', board[2][2]);  
 }
 
-function playerX() {
+function move(player) {
   prompt.get({
     properties: {
       coordinates: {
-        description: ("Player X, type a number to place")
+        description: ("Type a number to make a move")
       }
     }
   }, function (err, result) {
     if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
-      errorHandler('X');      
+      errorHandler(player);      
     } else {
       var row = result.coordinates[0];
       var column = result.coordinates[1];
-      board[row][column] = ' X';
+      board[row][column] = ` ${player}`;
       drawBoard();
       turn++;
-      checkEnd('X', row, column);
-    }
-  });
-}
-
-function playerO() {
-  prompt.get({
-    properties: {
-      coordinates: {
-        description: ("Player O, type a number to place")
-      }
-    }
-  }, function (err, result) {
-    if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
-      errorHandler('O');      
-    } else {
-      var row = result.coordinates[0];
-      var column = result.coordinates[1];
-      board[row][column] = ' O';
-      drawBoard();
-      turn++;
-      checkEnd('O', row, column);
+      checkEnd(player, row, column);
     }
   });
 }
@@ -88,7 +67,8 @@ function checkBoard (coordinates) {
 
 function errorHandler(player) {
   console.log('Move not valid, please go again');
-  player === 'X' ? playerX() : playerO();
+  player = player === 'X' ? 'O' : 'X';
+  move(player)
 }
 
 function checkRow (row) {
@@ -127,7 +107,9 @@ function checkEnd(player, row, column) {
     console.log('Tie game try again!');
     prompt.stop();
   } else { 
-    player === 'X' ? playerO() : playerX();    
+    console.log(player, 'player');
+    player = player === 'X' ? 'O' : 'X';
+    move(player);   
   }
 }
   
