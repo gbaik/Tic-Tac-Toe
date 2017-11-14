@@ -18,7 +18,8 @@ node index.js
 
 * [Prompt](https://github.com/flatiron/prompt) - Command-Line Prompt for Node.js
 
-## Authors
+## Author
 
-* **Gideon Baik** - *Sole Author* - [Gideon Baik](https://github.com/gbaik)
+#### Original Author and Development Lead
 
+- [Gideon Baik](https://github.com/gbaik) (gideonbaik@gmail.com)
