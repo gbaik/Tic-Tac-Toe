@@ -46,15 +46,14 @@ function playerX() {
       }
     }
   }, function (err, result) {
-    // Invoke check coordinate function (result) && check board function (result)  
     if (!checkCoordinates(result.coordinates)) {
       console.log('error1');
       return;
     }
-    // console.log(checkBoard(result.coordinates));
     if (checkBoard(result.coordinates)){
       // Invoke error function (x)
       console.log('error');
+      return;
     }
     // Else
       // Insert into board array
@@ -63,24 +62,14 @@ function playerX() {
   });
 }
 
-// Check coordinate function
 function checkCoordinates (coordinates) {
-    // Check whether or not the value exists in the checkCoordinates array
     return properCoordinates[coordinates];
 }
 
-// Check board function
 function checkBoard (coordinates) {
-  // Get first number
   var first = coordinates[0];
-  // Get second number
   var second = coordinates[1];
-  // return board[first][second];
   var boardValue = board[first][second];
-  // If the value is either X or O
-    // return true
-  // Else
-    // return false
   return boardValue === 'X' || boardValue === '0'
 }
 
