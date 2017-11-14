@@ -45,14 +45,14 @@ function playerX() {
       }
     }
   }, function (err, result) {
-    if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
+    console.log(checkBoard(result.coordinates));
+    if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
       errorHandler('X');      
-    } else { 
+    } else {
       var first = result.coordinates[0];
       var second = result.coordinates[1];
       board[first][second] = ' X';
       drawBoard();
-      // Invoke winner function (x)
       checkWinner('X');
     }
   });
@@ -66,14 +66,13 @@ function playerO() {
       }
     }
   }, function (err, result) {
-    if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
+    if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
       errorHandler('O');      
-    } else { 
+    } else {
       var first = result.coordinates[0];
       var second = result.coordinates[1];
       board[first][second] = ' O';
       drawBoard();
-      // Invoke winner function (o)
       checkWinner('O');
     }
   });
@@ -84,10 +83,10 @@ function checkCoordinates (coordinates) {
 }
 
 function checkBoard (coordinates) {
-var first = coordinates[0];
-var second = coordinates[1];
-var boardValue = board[first][second];
-return boardValue === 'X' || boardValue === '0'
+  var first = coordinates[0];
+  var second = coordinates[1];
+  console.log('BOARD', coordinates);
+  return board[first][second] !== coordinates;
 }
 
 function errorHandler(player) {
@@ -106,7 +105,7 @@ function checkWinner(player) {
     prompt.stop();
   } else { // Else
     // Invoke the other player
-    player0();
+    player === 'X' ? playerO() : playerX();    
   }
 }
   
