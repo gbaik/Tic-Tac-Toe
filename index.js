@@ -1,9 +1,9 @@
 var prompt = require('prompt');
 
 var board = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null]
+  ['00', '01', '02'],
+  ['10', '11', '12'],
+  ['20', '21', '22']
 ];
 
 var properCoordinates = {
@@ -25,15 +25,16 @@ prompt.start();
   * Players can submit moves (assume, admittedly unrealistically, that both players are sitting at the same keyboard).
   * Win detection - detect and display who won
 */
+function init() {
+  drawBoard();
+
+  playerX();  
+}
 
 function drawBoard() {
-  // Draws board
-  console.log('00|01|02');
-  console.log('10|11|12');
-  console.log('20|21|22');
-  
-  // Invoke X Player
-  playerX();
+  console.log(board[0][0],'|', board[0][1], '|', board[0][2]);
+  console.log(board[1][0],'|', board[1][1], '|', board[1][2]);
+  console.log(board[2][0],'|', board[2][1], '|', board[2][2]);  
 }
 
 // X Player
@@ -47,11 +48,14 @@ function playerX() {
   }, function (err, result) {
     if (!result.coordinates || !checkCoordinates(result.coordinates || checkBoard(result.coordinates))) {
       errorHandler('X');      
-    }
-    // Else
+    } else { // Else
+      var first = result.coordinates[0];
+      var second = result.coordinates[1];
       // Insert into board array
-      // Display new board
+      board[first][second] = ' X';
+      init();
       // Invoke winner function (x)
+    }
   });
 }
 
@@ -90,4 +94,4 @@ function errorHandler(player) {
   // Else
     // Invoke the other player
 
-drawBoard();
+init();
