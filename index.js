@@ -22,11 +22,6 @@ var turn = 0;
 
 prompt.start();
 
-/*
-  * Minimal UI that redraws the board and makes clear whose turn it is, each turn.
-  * Players can submit moves (assume, admittedly unrealistically, that both players are sitting at the same keyboard).
-  * Win detection - detect and display who won
-*/
 function init() {
   drawBoard();
 
@@ -120,17 +115,12 @@ function checkEqual (cord1, cord2, cord3) {
 function checkWinner (row, column) {
   return checkRow(row) || checkColumn(column) || checkMinorDiagonal() || checkMajorDiagonal();
 }
-// Winner function
+
 function checkEnd(player, row, column) {  
-  // Go through board array
-  // If there is three in a row
   if (checkWinner(row, column)) {
-    // Output winner of the game
     console.log('Congratulations', player, 'YOU ARE THE WINNER!!!');
-    // End game
     prompt.stop();
-  } else { // Else
-    // Invoke the other player
+  } else { 
     player === 'X' ? playerO() : playerX();    
   }
 }
