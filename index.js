@@ -42,32 +42,24 @@ function move(player) {
       }
     }
   }, function (err, result) {
-    if (!result.coordinates || !checkCoordinates(result.coordinates) || checkBoard(result.coordinates)) {
+    coordinates = result.coordinates;
+    var row = coordinates[0];
+    var column = coordinates[1];
+
+  if (!result.coordinates || !properCoordinates[coordinates] || board[row][column] !== coordinates) {
       errorHandler(player);      
-    } else {
-      var row = result.coordinates[0];
-      var column = result.coordinates[1];
-      board[row][column] = ` ${player}`;
-      drawBoard();
-      turn++;
-      checkEnd(player, row, column);
-    }
+  } else {
+    board[row][column] = ` ${player}`;
+    drawBoard();
+    turn++;
+    checkEnd(player, row, column);
+  }
   });
 }
 
 function setPlayer(player) {
   player = player === 'X' ? 'O' : 'X';
   move(player);  
-}
-
-function checkCoordinates (coordinates) {
-  return properCoordinates[coordinates];
-}
-
-function checkBoard (coordinates) {
-  var row = coordinates[0];
-  var column = coordinates[1];
-  return board[row][column] !== coordinates;
 }
 
 function errorHandler(player) {
