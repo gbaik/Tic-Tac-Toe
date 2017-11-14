@@ -24,7 +24,6 @@ prompt.start();
 
 function init() {
   drawBoard();
-
   move('X');  
 }
 
@@ -46,14 +45,14 @@ function move(player) {
     var row = coordinates[0];
     var column = coordinates[1];
 
-  if (!result.coordinates || !properCoordinates[coordinates] || board[row][column] !== coordinates) {
-      errorHandler(player);      
-  } else {
-    board[row][column] = ` ${player}`;
-    drawBoard();
-    turn++;
-    checkEnd(player, row, column);
-  }
+    if (!result.coordinates || !properCoordinates[coordinates] || board[row][column] !== coordinates) {
+        errorHandler(player);      
+    } else {
+      board[row][column] = ` ${player}`;
+      drawBoard();
+      turn++;
+      checkEnd(player, row, column);
+    }
   });
 }
 
