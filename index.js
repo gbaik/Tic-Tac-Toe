@@ -1,39 +1,41 @@
 var prompt = require('prompt');
 
-var board = [
-  ['00', '01', '02'],
-  ['10', '11', '12'],
-  ['20', '21', '22']
-];
-
-var properCoordinates = {
-  '00' : true,
-  '01' : true, 
-  '02' : true, 
-  '10' : true, 
-  '11' : true, 
-  '12' : true, 
-  '20' : true, 
-  '21' : true, 
-  '22' : true
-  };
-
-var turn = 0;
-
 prompt.start();
 
-function init() {
-  drawBoard();
-  move('X');  
+var TicTacToe = function() {
+  this.board = [
+    ['00', '01', '02'],
+    ['10', '11', '12'],
+    ['20', '21', '22']
+  ];
+  this.properCoordinates = {
+    '00' : true,
+    '01' : true, 
+    '02' : true, 
+    '10' : true, 
+    '11' : true, 
+    '12' : true, 
+    '20' : true, 
+    '21' : true, 
+    '22' : true
+  };
+  this.turn = 0;
 }
 
-function drawBoard() {
-  console.log(board[0][0],'|', board[0][1], '|', board[0][2]);
-  console.log(board[1][0],'|', board[1][1], '|', board[1][2]);
-  console.log(board[2][0],'|', board[2][1], '|', board[2][2]);  
+TicTacToe.prototype.init = function() {
+  this.drawBoard();
+  this.move('X');  
 }
 
-function move(player) {
+TicTacToe.prototype.drawBoard = function() {
+  console.log(this.board[0][0],'|', this.board[0][1], '|', this.board[0][2]);
+  console.log(this.board[1][0],'|', this.board[1][1], '|', this.board[1][2]);
+  console.log(this.board[2][0],'|', this.board[2][1], '|', this.board[2][2]);  
+}
+
+TicTacToe.prototype.move = function(player) {
+  var context = this;
+  
   prompt.get({
     properties: {
       coordinates: {
@@ -45,65 +47,66 @@ function move(player) {
     var row = coordinates[0];
     var column = coordinates[1];
 
-    if (!result.coordinates || !properCoordinates[coordinates] || board[row][column] !== coordinates) {
-        errorHandler(player);      
+    if (!result.coordinates || !context.properCoordinates[coordinates] || context.board[row][column] !== coordinates) {
+        context.errorHandler(player);      
     } else {
-      board[row][column] = ` ${player}`;
-      drawBoard();
-      turn++;
-      checkEnd(player, row, column);
+      context.board[row][column] = ` ${player}`;
+      context.drawBoard();
+      context.turn++;
+      context.checkEnd(player, row, column);
     }
   });
 }
 
-function setPlayer(player) {
+TicTacToe.prototype.setPlayer = function(player) {
   player = player === 'X' ? 'O' : 'X';
-  move(player);  
+  this.move(player);  
 }
 
-function errorHandler(player) {
+TicTacToe.prototype.errorHandler = function(player) {
   console.log('Move not valid, please go again');
-  setPlayer(player);  
+  this.setPlayer(player);  
 }
 
-function checkRow (row) {
-  return checkEqual(board[row][0], board[row][1], board[row][2]);
+TicTacToe.prototype.checkRow = function(row) {
+  return this.checkEqual(this.board[row][0], this.board[row][1], this.board[row][2]);
 }
 
-function checkColumn (column) {
-  return checkEqual(board[0][column], board[1][column], board[2][column]);
+TicTacToe.prototype.checkColumn = function(column) {
+  return this.checkEqual(this.board[0][column], this.board[1][column], this.board[2][column]);
 }
 
-function checkMinorDiagonal () {
-  return checkEqual(board[0][0], board[1][1], board[2][2]);
+TicTacToe.prototype.checkMinorDiagonal = function() {
+  return this.checkEqual(this.board[0][0], this.board[1][1], this.board[2][2]);
 }
 
-function checkMajorDiagonal () {
-  return checkEqual(board[0][2], board[1][1], board[2][0]);
+TicTacToe.prototype.checkMajorDiagonal = function() {
+  return this.checkEqual(this.board[0][2], this.board[1][1], this.board[2][0]);
 }
 
-function checkEqual (cord1, cord2, cord3) {
+TicTacToe.prototype.checkEqual = function(cord1, cord2, cord3) {
   return cord1 === cord2 && cord2 === cord3;
 }
 
-function checkWinner (row, column) {
-  return checkRow(row) || checkColumn(column) || checkMinorDiagonal() || checkMajorDiagonal();
+TicTacToe.prototype.checkWinner = function(row, column) {
+  return this.checkRow(row) || this.checkColumn(column) || this.checkMinorDiagonal() || this.checkMajorDiagonal();
 }
 
-function checkDraw () {
-  return turn === 9;
+TicTacToe.prototype.checkDraw = function() {
+  return this.turn === 9;
 }
 
-function checkEnd(player, row, column) {  
-  if (checkWinner(row, column)) {
+TicTacToe.prototype.checkEnd = function(player, row, column) {  
+  if (this.checkWinner(row, column)) {
     console.log('Congratulations', player, 'YOU ARE THE WINNER!!!');
     prompt.stop();
-  } else if (checkDraw()) {
+  } else if (this.checkDraw()) {
     console.log('Tie game try again!');
     prompt.stop();
   } else { 
-    setPlayer(player);
+    this.setPlayer(player);
   }
 }
   
-init();
+var game = new TicTacToe();
+game.init();
