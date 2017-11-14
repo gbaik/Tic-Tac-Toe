@@ -55,6 +55,11 @@ function move(player) {
   });
 }
 
+function setPlayer(player) {
+  player = player === 'X' ? 'O' : 'X';
+  move(player);  
+}
+
 function checkCoordinates (coordinates) {
   return properCoordinates[coordinates];
 }
@@ -67,8 +72,7 @@ function checkBoard (coordinates) {
 
 function errorHandler(player) {
   console.log('Move not valid, please go again');
-  player = player === 'X' ? 'O' : 'X';
-  move(player)
+  setPlayer(player);  
 }
 
 function checkRow (row) {
@@ -107,9 +111,7 @@ function checkEnd(player, row, column) {
     console.log('Tie game try again!');
     prompt.stop();
   } else { 
-    console.log(player, 'player');
-    player = player === 'X' ? 'O' : 'X';
-    move(player);   
+    setPlayer(player);
   }
 }
   
