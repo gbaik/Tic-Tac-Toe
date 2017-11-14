@@ -16,9 +16,41 @@ prompt.start();
 
 function drawBoard() {
   // Draws board
-  console.log('_|_|_');
-  console.log('_|_|_');
-  console.log(' | | ');  
+  console.log('1|2|3');
+  console.log('4|5|6');
+  console.log('7|8|9');
+  
+  // Invoke X Player 
 }
+
+// X Player
+  // Ask what position they want 
+    // If position is not on board or it's filled
+      // Invoke error function (x)
+    // Else
+      // Insert into board array
+      // Display new board
+      // Invoke winner function (x)
+
+// Y Player
+  // Ask what position they want 
+    // If position is not on board or it's filled
+      // Invoke error function (x)
+    // Else
+      // Insert into board array
+      // Display new board
+      // Invoke winner function (x)
+
+// Error function
+  // Error message that it is not a valid move
+  // Invoke whichever player's turn it is
+
+// Winner function
+  // Go through board array
+  // If there is three in a row
+    // Output winner of the game
+    // End game
+  // Else
+    // Invoke the other player
 
 drawBoard();
