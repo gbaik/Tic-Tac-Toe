@@ -38,7 +38,6 @@ function drawBoard() {
 
 // X Player
 function playerX() {
-  // Ask what position they want 
   prompt.get({
     properties: {
       coordinates: {
@@ -47,13 +46,10 @@ function playerX() {
     }
   }, function (err, result) {
     if (!checkCoordinates(result.coordinates)) {
-      console.log('error1');
-      return;
-    }
-    if (checkBoard(result.coordinates)){
+      errorHandler('X');
+    } else if (checkBoard(result.coordinates)){
       // Invoke error function (x)
-      console.log('error');
-      return;
+      errorHandler('X');      
     }
     // Else
       // Insert into board array
@@ -74,6 +70,7 @@ function checkBoard (coordinates) {
 }
 
 // O Player
+function playerO() {
   // Ask what position they want 
     // Invoke check board function (results)
       // Invoke error function (o)
@@ -81,10 +78,15 @@ function checkBoard (coordinates) {
       // Insert into board array
       // Display new board
       // Invoke winner function (o)
+}
 
 // Error function
+function errorHandler(player) {
   // Error message that it is not a valid move
+  console.log('Move not valid, please go again');
   // Invoke whichever player's turn it is
+  player === 'X' ? playerX() : playerO();
+}
 
 // Winner function
   // Go through board array
